@@ -543,6 +543,10 @@ body {
 }
 
 .pdf-page {
+  --user-unit: 1;
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
+  --total-scale-factor: calc(var(--scale-factor, 1) * var(--user-unit));
   position: relative;
   background: var(--bg-page-placeholder);
   box-shadow: 0 0 0 1px var(--border-hairline);

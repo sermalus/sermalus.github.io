@@ -372,22 +372,25 @@ async function renderPageSlot(slot) {
     }
 
     const dpr = window.devicePixelRatio || 1;
-    const maxSupersample = Math.max(1, 2880 / width);
-    const supersample = Math.min(maxSupersample, Math.max(2, Math.ceil(dpr * 2)));
-    const pixelWidth = Math.round(width * supersample);
-    const pixelHeight = Math.round(height * supersample);
+    const maxSupersample = Math.max(1, Math.floor(2880 / width));
+    const supersample = Math.min(
+      maxSupersample,
+      Math.max(2, Math.ceil(1600 / width), Math.ceil(dpr * 2))
+    );
+    const renderW = Math.round(width * supersample);
+    const renderH = Math.round(height * supersample);
     const viewport = page.getViewport({ scale: requestedScale });
-    const renderViewport = page.getViewport({ scale: pixelWidth / state.basePdfWidth });
+    const renderViewport = page.getViewport({ scale: renderW / state.basePdfWidth });
 
     const canvas = document.createElement("canvas");
-    canvas.width = pixelWidth;
-    canvas.height = pixelHeight;
+    canvas.width = renderW;
+    canvas.height = renderH;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const drawCtx = canvas.getContext("2d", { alpha: false });
     const renderTask = page.render({
-      canvasContext: ctx,
+      canvasContext: drawCtx,
       viewport: renderViewport,
     });
     slot.renderTask = renderTask;
@@ -409,6 +412,7 @@ async function renderPageSlot(slot) {
     photoLayerDiv.className = "photoLayer";
 
     slot.el.style.setProperty("--scale-factor", String(viewport.scale));
+    slot.el.style.setProperty("--total-scale-factor", String(viewport.scale));
     slot.el.replaceChildren(canvas, textLayerDiv, photoLayerDiv, annotationLayerDiv);
     slot.renderScale = requestedScale;
 
