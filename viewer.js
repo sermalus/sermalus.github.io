@@ -263,7 +263,7 @@ async function openPhotoLightbox(pageNum, box) {
   lightboxCanvas.style.height = `${cssH}px`;
 
   const ctx = lightboxCanvas.getContext("2d", { alpha: false });
-  ctx.fillStyle = "#131314";
+  ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, lightboxCanvas.width, lightboxCanvas.height);
 
   if (!photoLightbox.open) {
