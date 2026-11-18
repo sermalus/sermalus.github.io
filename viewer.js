@@ -9,7 +9,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "./vendor/pdfjs/pdf.worker.min.mjs";
 const PDF_URL = "./Portfolio.pdf";
 const BASE_PAGE_WIDTH = 800; // Matches Google Drive viewer 100% width (800px)
 const ZOOM_STEPS = [0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2];
-const KEEP_CANVAS_RANGE = 20;
+const KEEP_CANVAS_RANGE = 12;
 
 const appShell = document.getElementById("appShell");
 const pageInput = document.getElementById("pageInput");
@@ -371,13 +371,17 @@ async function renderPageSlot(slot) {
       return;
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = window.devicePixelRatio || 1;
+    const maxSupersample = Math.max(1, 2880 / width);
+    const supersample = Math.min(maxSupersample, Math.max(2, Math.ceil(dpr * 2)));
+    const pixelWidth = Math.round(width * supersample);
+    const pixelHeight = Math.round(height * supersample);
     const viewport = page.getViewport({ scale: requestedScale });
-    const renderViewport = page.getViewport({ scale: requestedScale * dpr });
+    const renderViewport = page.getViewport({ scale: pixelWidth / state.basePdfWidth });
 
     const canvas = document.createElement("canvas");
-    canvas.width = Math.ceil(renderViewport.width);
-    canvas.height = Math.ceil(renderViewport.height);
+    canvas.width = pixelWidth;
+    canvas.height = pixelHeight;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
@@ -496,7 +500,7 @@ async function renderThumbSlot(thumb) {
 
   try {
     const page = await state.pdfDoc.getPage(thumb.pageNum);
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.max(2, Math.min(window.devicePixelRatio || 1, 3));
     const thumbScale = (71 * dpr) / state.basePdfWidth;
     const viewport = page.getViewport({ scale: thumbScale });
 
