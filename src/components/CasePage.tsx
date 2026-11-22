@@ -35,11 +35,34 @@ function CarouselRow({
   const copy = getCaseText(lang);
   const title = section.title[lang];
 
-  const scrollByStep = (dir: -1 | 1) => {
+  const scrollByItem = (dir: -1 | 1) => {
     const el = trackRef.current;
     if (!el) return;
-    const step = Math.max(300, Math.round(el.clientWidth * 0.72));
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
+    const items = Array.from(el.children) as HTMLElement[];
+    if (items.length === 0) return;
+
+    const trackLeft = el.getBoundingClientRect().left;
+    const positions = items.map((item) =>
+      Math.round(el.scrollLeft + (item.getBoundingClientRect().left - trackLeft))
+    );
+    const current = el.scrollLeft;
+    const tolerance = 4;
+
+    if (dir === 1) {
+      const next = positions.find((pos) => pos > current + tolerance);
+      el.scrollTo({
+        left: next ?? el.scrollWidth,
+        behavior: "smooth",
+      });
+    } else {
+      const prev = [...positions]
+        .reverse()
+        .find((pos) => pos < current - tolerance);
+      el.scrollTo({
+        left: prev ?? 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -58,7 +81,7 @@ function CarouselRow({
           <button
             type="button"
             className="carousel-arrow"
-            onClick={() => scrollByStep(-1)}
+            onClick={() => scrollByItem(-1)}
             aria-label={copy.prevAria}
           >
             <ChevronLeft size={16} />
@@ -66,7 +89,7 @@ function CarouselRow({
           <button
             type="button"
             className="carousel-arrow"
-            onClick={() => scrollByStep(1)}
+            onClick={() => scrollByItem(1)}
             aria-label={copy.nextAria}
           >
             <ChevronRight size={16} />
