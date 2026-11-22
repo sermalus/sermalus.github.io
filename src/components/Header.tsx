@@ -3,6 +3,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { CONTACTS } from "../data/projects";
+import { UI_COPY, type Lang } from "../i18n";
+
+interface HeaderProps {
+  lang: Lang;
+  onToggleLang: () => void;
+}
 
 function DiscordIcon() {
   return (
@@ -20,10 +26,11 @@ function TelegramIcon() {
   );
 }
 
-export function Header() {
+export function Header({ lang, onToggleLang }: HeaderProps) {
   const [openId, setOpenId] = useState<"discord" | "telegram" | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const clusterRef = useRef<HTMLDivElement>(null);
+  const t = UI_COPY[lang];
 
   useEffect(() => {
     if (!openId) return;
@@ -49,14 +56,14 @@ export function Header() {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedId(id);
-      toast.success(`${label} copied`, {
+      toast.success(t.copiedToast(label), {
         description: value,
       });
       window.setTimeout(() => {
         setCopiedId((curr) => (curr === id ? null : curr));
       }, 1800);
     } catch {
-      toast.error("Could not copy to clipboard");
+      toast.error(t.copyError);
     }
   };
 
@@ -73,11 +80,22 @@ export function Header() {
         </div>
         <div>
           <h1 className="identity-title">Sermalus</h1>
-          <p className="identity-subtitle">Graphic Designer</p>
+          <p className="identity-subtitle">{t.subtitle}</p>
         </div>
       </div>
 
       <div className="contact-cluster" ref={clusterRef}>
+        <button
+          type="button"
+          className="lang-chip"
+          onClick={onToggleLang}
+          aria-label={t.switchLangAria}
+        >
+          <span className={lang === "en" ? "is-current" : ""}>EN</span>
+          <span className="lang-sep" aria-hidden="true">/</span>
+          <span className={lang === "ru" ? "is-current" : ""}>RU</span>
+        </button>
+
         {CONTACTS.map((contact) => {
           const isOpen = openId === contact.id;
           const isCopied = copiedId === contact.id;
@@ -101,9 +119,9 @@ export function Header() {
                     initial={{ opacity: 0, scale: 0.96, y: -4 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.96, y: -4 }}
-                    transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+                    transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                   >
-                    <div className="plate-label">{contact.label} username</div>
+                    <div className="plate-label">{t.usernameLabel(contact.label)}</div>
                     <div className="plate-handle-row">
                       <span className="plate-handle">{contact.handle}</span>
                       <button
@@ -114,7 +132,7 @@ export function Header() {
                         }
                       >
                         {isCopied ? <Check size={13} /> : <Copy size={13} />}
-                        <span>{isCopied ? "Copied" : "Copy"}</span>
+                        <span>{isCopied ? t.copied : t.copy}</span>
                       </button>
                     </div>
                     {contact.href && (
@@ -125,7 +143,7 @@ export function Header() {
                         rel="noopener noreferrer"
                         onClick={() => setOpenId(null)}
                       >
-                        <span>Open in Telegram</span>
+                        <span>{t.openTelegram}</span>
                         <ArrowUpRight size={14} />
                       </a>
                     )}

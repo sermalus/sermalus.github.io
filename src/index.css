@@ -117,6 +117,51 @@ body {
   position: relative;
 }
 
+.lang-chip {
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 9999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.lang-chip:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.lang-chip:active {
+  transform: scale(0.97);
+}
+
+.lang-chip:focus-visible {
+  outline: 2px solid var(--border-white);
+  outline-offset: 2px;
+}
+
+.lang-chip .is-current {
+  color: var(--text-primary);
+}
+
+.lang-sep {
+  opacity: 0.4;
+}
+
 .contact-chip {
   height: 38px;
   padding: 0 15px;
@@ -131,10 +176,12 @@ body {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition:
-    background-color 160ms var(--ease-out),
-    border-color 160ms var(--ease-out),
-    transform 150ms var(--ease-out);
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    transform 160ms var(--ease-out);
 }
 
 .contact-chip:hover {
@@ -283,12 +330,14 @@ body {
   justify-content: space-between;
   overflow: hidden;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transform-origin: center bottom;
   transition:
-    transform 420ms var(--ease-out-expo),
-    background-color 280ms var(--ease-out),
-    border-color 280ms var(--ease-out),
-    box-shadow 420ms var(--ease-out-expo);
+    transform 560ms var(--ease-out-expo),
+    background-color 380ms var(--ease-out),
+    border-color 380ms var(--ease-out),
+    box-shadow 560ms var(--ease-out-expo);
   appearance: none;
   font-family: inherit;
 }
@@ -336,7 +385,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 420ms var(--ease-out-expo);
+  transition: transform 560ms var(--ease-out-expo);
 }
 
 @media (hover: hover) {
@@ -367,7 +416,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 420ms var(--ease-out-expo);
+  transition: transform 560ms var(--ease-out-expo);
 }
 
 .bento-card:hover .project-icon-img,
@@ -392,8 +441,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: #141415;
   transition:
-    transform 420ms var(--ease-out-expo),
-    border-color 280ms var(--ease-out);
+    transform 560ms var(--ease-out-expo),
+    border-color 360ms var(--ease-out);
 }
 
 .deck-sheet--back {
@@ -496,8 +545,8 @@ body {
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
-    grid-template-rows 380ms var(--ease-out-expo),
-    opacity 260ms var(--ease-out);
+    grid-template-rows 500ms var(--ease-out-expo),
+    opacity 360ms var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -874,6 +923,11 @@ body {
 }
 
 @media (max-width: 640px) {
+  .app-shell {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
   .site-width {
     padding-inline: 16px;
   }
@@ -881,57 +935,177 @@ body {
   .home-header {
     flex-direction: column;
     align-items: flex-start;
-    padding-top: 28px;
-    padding-bottom: 28px;
-    gap: 18px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 16px;
   }
 
   .brand-mark {
-    width: 46px;
-    height: 46px;
-    border-radius: 13px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
   }
 
   .identity-title,
   .identity-subtitle {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .contact-cluster {
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lang-chip {
+    height: 42px;
+    padding: 0 13px;
+    flex-shrink: 0;
   }
 
   .contact-chip-wrap {
     flex: 1;
+    position: static;
   }
 
   .contact-chip {
     width: 100%;
+    height: 42px;
     justify-content: center;
   }
 
   .contact-plate {
     left: 0;
-    right: auto;
-    min-width: 220px;
-  }
-
-  .contact-chip-wrap:last-child .contact-plate {
-    left: auto;
     right: 0;
+    top: calc(100% + 8px);
+    min-width: 0;
+    transform-origin: top center;
   }
 
+  /* Compact native-feel horizontal cards on mobile only (desktop untouched) */
   .cards-row {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
+  }
+
+  .bento-card {
+    min-height: 0;
+    padding: 14px;
+    border-radius: 18px;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 14px;
+  }
+
+  .bento-card:active {
+    transform: scale(0.985);
+    background: var(--bg-card-hover);
+    border-color: var(--border-strong);
+  }
+
+  .card-visual {
+    width: 76px;
+    height: 76px;
+    min-height: 0;
+    flex: 0 0 76px;
+  }
+
+  .project-icon-frame {
+    width: 76px;
+    height: 76px;
+    border-radius: 14px;
+  }
+
+  .deck-fan {
+    width: 76px;
+    height: 76px;
+    transform: scale(0.54);
+  }
+
+  .card-footer-stack {
+    align-items: flex-start;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .card-expand-inner {
+    align-items: flex-start;
+  }
+
+  .card-desc {
+    margin: 3px 0 8px;
+    max-width: none;
+    font-size: 12.5px;
+  }
+
+  .card-cta {
+    height: 28px;
+    padding: 0 11px;
+    font-size: 11.5px;
   }
 
   .site-footer {
     height: auto;
-    padding-block: 24px;
-    flex-direction: column;
-    align-items: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     gap: 8px;
+  }
+
+  /* Mobile modal sheet refinements */
+  .project-dialog {
+    width: calc(100vw - 24px);
+    max-height: 88dvh;
+    border-radius: 18px;
+  }
+
+  .dialog-body {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .dialog-meta-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dialog-meta-cell {
+    padding: 8px 10px;
+  }
+
+  .dialog-meta-cell dd {
+    font-size: 12px;
+  }
+
+  .dialog-previews {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .dialog-footer-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .dialog-btn--primary {
+    width: 100%;
+    justify-content: center;
+    height: 42px;
+  }
+
+  .dialog-ext-links {
+    justify-content: center;
+    gap: 18px;
   }
 }
 

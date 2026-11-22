@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import type { ProjectItem } from "../data/projects";
+import { UI_COPY, type Lang } from "../i18n";
 
 interface ProjectDialogProps {
   project: ProjectItem | null;
+  lang: Lang;
   onClose: () => void;
 }
 
-export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
+export function ProjectDialog({ project, lang, onClose }: ProjectDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const t = UI_COPY[lang];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -92,7 +95,7 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
               <button
                 type="submit"
                 className="dialog-close"
-                aria-label="Close project details"
+                aria-label={t.closeDialog}
                 autoFocus
               >
                 <X size={16} />
@@ -132,7 +135,7 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
                   key={preview.page}
                   href={`/portfolio/#page=${preview.page}`}
                   className="dialog-preview-item"
-                  title={`Open slide ${preview.page}`}
+                  title={t.openSlide(preview.page)}
                 >
                   <img
                     src={preview.src}
@@ -159,10 +162,7 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
                   className="dialog-btn dialog-btn--primary"
                   href={`/portfolio/#page=${project.portfolioPage}`}
                 >
-                  <span>
-                    View full case
-                    {project.slideCount ? ` (${project.slideCount} slides)` : ""}
-                  </span>
+                  <span>{t.viewFullCase(project.slideCount)}</span>
                   <ArrowUpRight size={15} />
                 </a>
               )}

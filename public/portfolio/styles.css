@@ -755,6 +755,10 @@ body {
 
 /* Responsive adjustments for smaller viewports */
 @media (max-width: 767px) {
+  .file-meta {
+    display: none;
+  }
+
   .toolbar-divider {
     margin: 0 8px;
   }
@@ -765,6 +769,12 @@ body {
 
   .toolbar-pill {
     padding: 0 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .toolbar-pill::-webkit-scrollbar {
+    display: none;
   }
 
   .icon-rail {
