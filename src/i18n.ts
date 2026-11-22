@@ -69,6 +69,7 @@ export const UI_COPY = {
 
 export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
   "my-projects": {
+    title: "АЙДЕНТИКА И PDF",
     shortDesc: "Айдентика, логотипы и полное портфолио (68 сл.).",
     ctaLabel: "Открыть PDF",
   },

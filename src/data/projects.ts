@@ -59,7 +59,7 @@ export const CONTACTS = [
 export const PROJECTS: ProjectItem[] = [
   {
     id: "my-projects",
-    title: "PORTFOLIO",
+    title: "IDENTITY & PDF",
     shortDesc: "Brand identity, logos & full 68-page PDF.",
     ctaLabel: "Open PDF",
     href: "/portfolio/",
