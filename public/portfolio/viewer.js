@@ -862,10 +862,19 @@ async function init() {
 
     buildPlaceholders();
     setupObservers();
-    setActivePage(1, { syncInput: true, scrollThumb: false });
 
-    // Eagerly render page 1 so first impression is instant
-    if (state.pageSlots[0]) {
+    const hashMatch = window.location.hash.match(/page=(\d+)/i);
+    const initialPage = hashMatch
+      ? Math.max(1, Math.min(state.numPages, Number.parseInt(hashMatch[1], 10)))
+      : 1;
+
+    setActivePage(initialPage, { syncInput: true, scrollThumb: initialPage > 1 });
+
+    if (initialPage > 1 && state.pageSlots[initialPage - 1]) {
+      scrollToPage(initialPage, "auto");
+      await renderPageSlot(state.pageSlots[initialPage - 1]);
+    } else if (state.pageSlots[0]) {
+      // Eagerly render page 1 so first impression is instant
       await renderPageSlot(state.pageSlots[0]);
     }
   } catch (err) {
