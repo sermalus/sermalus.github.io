@@ -8,6 +8,17 @@ export interface ProjectQuote {
   author: string;
 }
 
+export interface ProjectPreview {
+  src: string;
+  alt: string;
+  page: number;
+}
+
+export interface ProjectMeta {
+  label: string;
+  value: string;
+}
+
 export interface ProjectItem {
   id: "my-projects" | "cold-war" | "stec" | "hellmet";
   title: string;
@@ -17,8 +28,12 @@ export interface ProjectItem {
   href?: string;
   role?: string;
   status?: "active" | "placeholder";
-  summary?: string;
+  contextLine?: string;
+  meta?: ProjectMeta[];
+  deliverables?: string[];
+  previews?: ProjectPreview[];
   portfolioPage?: number;
+  slideCount?: number;
   links?: ProjectLink[];
   quote?: ProjectQuote;
 }
@@ -55,9 +70,26 @@ export const PROJECTS: ProjectItem[] = [
     icon: "/assets/cold-war-icon.png",
     role: "Senior Contributor · Grip Studios",
     status: "active",
-    summary:
-      "An alternate history game set in the 1980s and 1990s depicting a conventional war between NATO forces and the Warsaw Pact. Contributed commercial signage, military & propaganda posters, and in-world environment graphics.",
+    contextLine:
+      "1980s–90s alt-history Roblox shooter — designed in-world commercial branding, bilingual military signage, and environment posters.",
+    meta: [
+      { label: "Period", value: "2025 – Present" },
+      { label: "Tools", value: "Figma · Affinity" },
+      { label: "Deck", value: "18 slides" },
+    ],
+    deliverables: [
+      "Commercial signage",
+      "Military & propaganda posters",
+      "In-world restaurant menus",
+      "Prop textures",
+    ],
+    previews: [
+      { src: "/assets/previews/cw-1.webp", alt: "Cold War retro food ad", page: 35 },
+      { src: "/assets/previews/cw-2.webp", alt: "Bilingual military signage", page: 44 },
+      { src: "/assets/previews/cw-3.webp", alt: "In-game menu boards", page: 47 },
+    ],
     portfolioPage: 31,
+    slideCount: 18,
     links: [
       {
         label: "Roblox Game",
@@ -69,7 +101,7 @@ export const PROJECTS: ProjectItem[] = [
       },
     ],
     quote: {
-      text: "Working with sermalus is a pleasant experience, easy to work with, fast to respond and generally a nice person. I highly recommend him for his good working attitude.",
+      text: "Easy to work with, fast to respond and generally a nice person. I highly recommend him for his good working attitude.",
       author: "popkid56 · Team Lead, Cold War",
     },
   },
@@ -81,21 +113,38 @@ export const PROJECTS: ProjectItem[] = [
     icon: "/assets/stec-icon.png",
     role: "Senior Contributor · Media Office",
     status: "active",
-    summary:
-      "Stratocratic Engineering Corps — a development and game design studio for a community of over 20,000 members. Designed in-game maps graphics, faction iconography, commercial signage, and media assets for STEC and AFCS.",
+    contextLine:
+      "Stratocratic Engineering Corps & AFCS Media Office — created recruitment posters, retro commercial ads, map graphics, and vector UI icons.",
+    meta: [
+      { label: "Scale", value: "20k+ members" },
+      { label: "Tools", value: "Figma · Affinity" },
+      { label: "Deck", value: "17 slides" },
+    ],
+    deliverables: [
+      "Recruitment posters",
+      "Commercial ads",
+      "Vector UI icons",
+      "Faction iconography",
+    ],
+    previews: [
+      { src: "/assets/previews/stec-1.webp", alt: "STEC recruitment posters", page: 51 },
+      { src: "/assets/previews/stec-2.webp", alt: "Retro Bloxy Cola ad", page: 55 },
+      { src: "/assets/previews/stec-3.webp", alt: "Vector killfeed UI icons", page: 62 },
+    ],
     portfolioPage: 49,
+    slideCount: 17,
     links: [
       {
-        label: "STEC Community",
+        label: "STEC",
         href: "https://www.roblox.com/communities/947666928/Stratocratic-Engineering-Corps#!/about",
       },
       {
-        label: "AFCS Community",
+        label: "AFCS",
         href: "https://www.roblox.com/communities/35979610/AFCS-Atrian-Federal-Correctional-Services#!/about",
       },
     ],
     quote: {
-      text: "Sermalus is a quick and skilled contributor who shows a great and unique touch for graphic design. He is both active and highly capable.",
+      text: "Quick and skilled contributor who shows a great and unique touch for graphic design. Both active and highly capable.",
       author: "Dipstick (@hvzel_dip) · STEC Department Head",
     },
   },
@@ -107,7 +156,7 @@ export const PROJECTS: ProjectItem[] = [
     icon: "/assets/hellmet-icon.png",
     role: "In Progress",
     status: "placeholder",
-    summary:
-      "Project materials, selected visuals, and dedicated PDF showcase for HELLMET are currently being prepared and will be published here soon.",
+    contextLine:
+      "Project materials, selected visuals, and dedicated PDF showcase for HELLMET are currently in progress and will be published here soon.",
   },
 ];

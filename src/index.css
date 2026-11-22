@@ -574,8 +574,8 @@ body {
 
 /* Project Modal (<dialog>) */
 .project-dialog {
-  width: min(560px, calc(100vw - 32px));
-  max-height: min(86dvh, 720px);
+  width: min(600px, calc(100vw - 32px));
+  max-height: min(88dvh, 760px);
   margin: auto;
   padding: 0;
   border-radius: 20px;
@@ -602,11 +602,11 @@ body {
 }
 
 .dialog-body {
-  padding: 24px;
+  padding: 22px 24px 24px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .dialog-head {
@@ -623,9 +623,9 @@ body {
 }
 
 .dialog-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
   object-fit: cover;
   border: 1px solid var(--border-medium);
   flex-shrink: 0;
@@ -638,7 +638,7 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .dialog-title {
@@ -677,16 +677,101 @@ body {
   transform: scale(0.95);
 }
 
+.dialog-meta-bar {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-radius: 12px;
+  background: var(--bg-stage);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.dialog-meta-cell {
+  padding: 10px 12px;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.dialog-meta-cell:last-child {
+  border-right: 0;
+}
+
+.dialog-meta-cell dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.dialog-meta-cell dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
 .dialog-copy {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 13.5px;
+  line-height: 1.5;
   color: var(--text-secondary);
+}
+
+.dialog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dialog-tag {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: var(--bg-stage);
+  border: 1px solid var(--border-subtle);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.dialog-previews {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dialog-preview-item {
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #111112;
+  transition: border-color 160ms var(--ease-out);
+}
+
+.dialog-preview-item:hover,
+.dialog-preview-item:focus-visible {
+  border-color: var(--border-strong);
+  outline: none;
+}
+
+.dialog-preview-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 280ms var(--ease-out-expo);
+}
+
+.dialog-preview-item:hover img {
+  transform: scale(1.04);
 }
 
 .dialog-quote {
   margin: 0;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-radius: 12px;
   background: var(--bg-stage);
   border: 1px solid var(--border-subtle);
@@ -694,29 +779,53 @@ body {
 
 .dialog-quote p {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.48;
   color: var(--text-secondary);
 }
 
 .dialog-quote footer {
-  margin-top: 8px;
+  margin-top: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.dialog-actions {
+.dialog-footer-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 12px;
   padding-top: 4px;
+}
+
+.dialog-ext-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dialog-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 140ms var(--ease-out);
+}
+
+.dialog-text-link:hover,
+.dialog-text-link:focus-visible {
+  color: var(--text-primary);
+  outline: none;
 }
 
 .dialog-btn {
   height: 38px;
-  padding: 0 16px;
+  padding: 0 18px;
   border-radius: 9999px;
   font-size: 13px;
   font-weight: 500;
@@ -743,17 +852,6 @@ body {
 
 .dialog-btn--primary:hover {
   background: #ffffff;
-}
-
-.dialog-btn--secondary {
-  background: var(--bg-stage);
-  color: var(--text-primary);
-  border: 1px solid var(--border-medium);
-}
-
-.dialog-btn--secondary:hover {
-  background: var(--bg-surface-active);
-  border-color: var(--border-strong);
 }
 
 /* Responsive */

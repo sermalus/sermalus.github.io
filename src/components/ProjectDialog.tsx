@@ -74,8 +74,8 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
                   src={project.icon}
                   alt={`${project.title} icon`}
                   className="dialog-icon"
-                  width={56}
-                  height={56}
+                  width={52}
+                  height={52}
                 />
               )}
               <div>
@@ -100,8 +100,49 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
             </form>
           </div>
 
-          {project.summary && (
-            <p className="dialog-copy">{project.summary}</p>
+          {project.meta && project.meta.length > 0 && (
+            <dl className="dialog-meta-bar">
+              {project.meta.map((item) => (
+                <div className="dialog-meta-cell" key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          {project.contextLine && (
+            <p className="dialog-copy">{project.contextLine}</p>
+          )}
+
+          {project.deliverables && project.deliverables.length > 0 && (
+            <div className="dialog-tags" aria-label="Deliverables">
+              {project.deliverables.map((tag) => (
+                <span className="dialog-tag" key={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {project.previews && project.previews.length > 0 && (
+            <div className="dialog-previews" aria-label="Selected works">
+              {project.previews.map((preview) => (
+                <a
+                  key={preview.page}
+                  href={`/portfolio/#page=${preview.page}`}
+                  className="dialog-preview-item"
+                  title={`Open slide ${preview.page}`}
+                >
+                  <img
+                    src={preview.src}
+                    alt={preview.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+              ))}
+            </div>
           )}
 
           {project.quote && (
@@ -111,29 +152,39 @@ export function ProjectDialog({ project, onClose }: ProjectDialogProps) {
             </blockquote>
           )}
 
-          <div className="dialog-actions">
-            {project.portfolioPage && (
-              <a
-                className="dialog-btn dialog-btn--primary"
-                href={`/portfolio/#page=${project.portfolioPage}`}
-              >
-                <span>Open slides (p. {project.portfolioPage})</span>
-                <ArrowUpRight size={15} />
-              </a>
-            )}
-            {project.links?.map((link) => (
-              <a
-                key={link.href}
-                className="dialog-btn dialog-btn--secondary"
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>{link.label}</span>
-                <ArrowUpRight size={14} />
-              </a>
-            ))}
-          </div>
+          {(project.portfolioPage || (project.links && project.links.length > 0)) && (
+            <div className="dialog-footer-bar">
+              {project.portfolioPage && (
+                <a
+                  className="dialog-btn dialog-btn--primary"
+                  href={`/portfolio/#page=${project.portfolioPage}`}
+                >
+                  <span>
+                    View full case
+                    {project.slideCount ? ` (${project.slideCount} slides)` : ""}
+                  </span>
+                  <ArrowUpRight size={15} />
+                </a>
+              )}
+
+              {project.links && project.links.length > 0 && (
+                <div className="dialog-ext-links">
+                  {project.links.map((link) => (
+                    <a
+                      key={link.href}
+                      className="dialog-text-link"
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>{link.label}</span>
+                      <ArrowUpRight size={13} />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </dialog>
