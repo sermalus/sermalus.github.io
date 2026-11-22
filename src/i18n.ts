@@ -74,7 +74,7 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
   },
   "cold-war": {
     shortDesc: "Графика и визуал окружения для шутера 1980–90-х.",
-    ctaLabel: "Подробнее",
+    ctaLabel: "Открыть галерею",
     role: "Senior Contributor · Grip Studios",
     contextLine:
       "Альтернативно-исторический Roblox-шутер 1980–90-х — внутриигровая реклама, двуязычные военные таблички и постеры окружения.",
@@ -106,7 +106,7 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
   },
   stec: {
     shortDesc: "Студия разработки и медиа-дизайна для 20k+ комьюнити.",
-    ctaLabel: "Подробнее",
+    ctaLabel: "Открыть галерею",
     role: "Senior Contributor · Media Office",
     contextLine:
       "Stratocratic Engineering Corps и AFCS Media Office — агитационные постеры, ретро-реклама, графика карт и векторные иконки интерфейса.",

@@ -36,6 +36,8 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
     e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
   };
 
+  const targetHref = project.href ?? (project.caseId ? `#/${project.caseId}` : null);
+
   const innerContent = (
     <>
       <div className="card-visual">
@@ -66,7 +68,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
               }
             >
               <span>{project.ctaLabel}</span>
-              {project.href && <ArrowUpRight size={13} aria-hidden="true" />}
+              {targetHref && <ArrowUpRight size={13} aria-hidden="true" />}
             </span>
           </div>
         </div>
@@ -74,10 +76,10 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
     </>
   );
 
-  if (project.href) {
+  if (targetHref) {
     return (
       <a
-        href={project.href}
+        href={targetHref}
         className="bento-card"
         onPointerMove={handlePointerMove}
       >
