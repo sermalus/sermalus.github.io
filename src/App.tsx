@@ -5,6 +5,7 @@ import { Header } from "./components/Header";
 import { ProjectCard } from "./components/ProjectCard";
 import { ProjectDialog } from "./components/ProjectDialog";
 import { Footer } from "./components/Footer";
+import { CasePage } from "./components/CasePage";
 import { PROJECTS, type ProjectItem } from "./data/projects";
 import {
   UI_COPY,
@@ -14,15 +15,36 @@ import {
   type Lang,
 } from "./i18n";
 
+type CaseRoute = "cold-war" | "stec" | null;
+
+function parseCaseRoute(): CaseRoute {
+  const hash = window.location.hash.replace(/^#\/?/, "").toLowerCase();
+  if (hash === "cold-war" || hash === "stec") return hash;
+  return null;
+}
+
 export function App() {
   const [lang, setLang] = useState<Lang>(() => detectInitialLang());
   const [activeId, setActiveId] = useState<ProjectItem["id"] | null>(null);
+  const [caseRoute, setCaseRoute] = useState<CaseRoute>(() => parseCaseRoute());
+
+  useEffect(() => {
+    const onHashChange = () => setCaseRoute(parseCaseRoute());
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
-    document.title = UI_COPY[lang].pageTitle;
+    if (caseRoute === "cold-war") {
+      document.title = "COLD WAR — Sermalus";
+    } else if (caseRoute === "stec") {
+      document.title = "STEC — Sermalus";
+    } else {
+      document.title = UI_COPY[lang].pageTitle;
+    }
     saveLang(lang);
-  }, [lang]);
+  }, [lang, caseRoute]);
 
   const localizedProjects = useMemo(
     () => PROJECTS.map((p) => localizeProject(p, lang)),
@@ -35,6 +57,29 @@ export function App() {
   );
 
   const toggleLang = () => setLang((prev) => (prev === "en" ? "ru" : "en"));
+
+  const navigateToCase = (id: "cold-war" | "stec") => {
+    setActiveId(null);
+    window.location.hash = `/${id}`;
+    setCaseRoute(id);
+  };
+
+  const navigateHome = () => {
+    window.location.hash = "";
+    setCaseRoute(null);
+  };
+
+  if (caseRoute) {
+    return (
+      <CasePage
+        caseId={caseRoute}
+        lang={lang}
+        onToggleLang={toggleLang}
+        onBack={navigateHome}
+        onNavigateCase={navigateToCase}
+      />
+    );
+  }
 
   return (
     <div className="app-shell">
@@ -79,6 +124,7 @@ export function App() {
         project={activeProject}
         lang={lang}
         onClose={() => setActiveId(null)}
+        onOpenCase={navigateToCase}
       />
     </div>
   );

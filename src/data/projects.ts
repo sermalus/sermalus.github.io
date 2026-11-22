@@ -25,7 +25,9 @@ export interface ProjectItem {
   shortDesc: string;
   ctaLabel: string;
   icon?: string;
+  cover?: string;
   href?: string;
+  caseId?: "cold-war" | "stec";
   role?: string;
   status?: "active" | "placeholder";
   contextLine?: string;
@@ -33,7 +35,7 @@ export interface ProjectItem {
   deliverables?: string[];
   previews?: ProjectPreview[];
   portfolioPage?: number;
-  slideCount?: number;
+  workCount?: number;
   links?: ProjectLink[];
   quote?: ProjectQuote;
 }
@@ -57,9 +59,9 @@ export const CONTACTS = [
 export const PROJECTS: ProjectItem[] = [
   {
     id: "my-projects",
-    title: "MY PROJECTS",
-    shortDesc: "Brand identity, posters & full 68-page PDF deck.",
-    ctaLabel: "Open deck",
+    title: "PORTFOLIO",
+    shortDesc: "Brand identity, logos & full 68-page PDF.",
+    ctaLabel: "Open PDF",
     href: "/portfolio/",
   },
   {
@@ -68,6 +70,7 @@ export const PROJECTS: ProjectItem[] = [
     shortDesc: "1980s–90s alt-history game graphics & worldbuilding.",
     ctaLabel: "Inspect",
     icon: "/assets/cold-war-icon.png",
+    caseId: "cold-war",
     role: "Senior Contributor · Grip Studios",
     status: "active",
     contextLine:
@@ -75,12 +78,12 @@ export const PROJECTS: ProjectItem[] = [
     meta: [
       { label: "Period", value: "2025 – Present" },
       { label: "Tools", value: "Figma · Affinity" },
-      { label: "Deck", value: "18 slides" },
+      { label: "Works", value: "21 assets" },
     ],
     deliverables: [
       "Commercial signage",
       "Military & propaganda posters",
-      "In-world restaurant menus",
+      "McDowald's menu series",
       "Prop textures",
     ],
     previews: [
@@ -89,7 +92,7 @@ export const PROJECTS: ProjectItem[] = [
       { src: "/assets/previews/cw-3.webp", alt: "In-game menu boards", page: 47 },
     ],
     portfolioPage: 31,
-    slideCount: 18,
+    workCount: 21,
     links: [
       {
         label: "Roblox Game",
@@ -111,6 +114,7 @@ export const PROJECTS: ProjectItem[] = [
     shortDesc: "Development & game design studio for a 20k+ community.",
     ctaLabel: "Inspect",
     icon: "/assets/stec-icon.png",
+    caseId: "stec",
     role: "Senior Contributor · Media Office",
     status: "active",
     contextLine:
@@ -118,13 +122,13 @@ export const PROJECTS: ProjectItem[] = [
     meta: [
       { label: "Scale", value: "20k+ members" },
       { label: "Tools", value: "Figma · Affinity" },
-      { label: "Deck", value: "17 slides" },
+      { label: "Works", value: "18 assets" },
     ],
     deliverables: [
-      "Recruitment posters",
-      "Commercial ads",
+      "AFCS & faction posters",
+      "Commercial ads & packaging",
       "Vector UI icons",
-      "Faction iconography",
+      "Color & unit guides",
     ],
     previews: [
       { src: "/assets/previews/stec-1.webp", alt: "STEC recruitment posters", page: 51 },
@@ -132,7 +136,7 @@ export const PROJECTS: ProjectItem[] = [
       { src: "/assets/previews/stec-3.webp", alt: "Vector killfeed UI icons", page: 62 },
     ],
     portfolioPage: 49,
-    slideCount: 17,
+    workCount: 18,
     links: [
       {
         label: "STEC",
@@ -154,9 +158,10 @@ export const PROJECTS: ProjectItem[] = [
     shortDesc: "Current project · Case study coming soon.",
     ctaLabel: "Preview",
     icon: "/assets/hellmet-icon.png",
+    cover: "/assets/covers/hellmet.webp",
     role: "In Progress",
     status: "placeholder",
     contextLine:
-      "Project materials, selected visuals, and dedicated PDF showcase for HELLMET are currently in progress and will be published here soon.",
+      "Project materials, selected visuals, and dedicated showcase for HELLMET are currently in progress and will be published here soon.",
   },
 ];

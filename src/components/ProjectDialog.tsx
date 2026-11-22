@@ -7,9 +7,15 @@ interface ProjectDialogProps {
   project: ProjectItem | null;
   lang: Lang;
   onClose: () => void;
+  onOpenCase: (caseId: "cold-war" | "stec") => void;
 }
 
-export function ProjectDialog({ project, lang, onClose }: ProjectDialogProps) {
+export function ProjectDialog({
+  project,
+  lang,
+  onClose,
+  onOpenCase,
+}: ProjectDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const t = UI_COPY[lang];
 
@@ -128,23 +134,46 @@ export function ProjectDialog({ project, lang, onClose }: ProjectDialogProps) {
             </div>
           )}
 
+          {project.cover && (
+            <div className="dialog-cover-banner">
+              <img src={project.cover} alt={`${project.title} cover`} />
+            </div>
+          )}
+
           {project.previews && project.previews.length > 0 && (
             <div className="dialog-previews" aria-label="Selected works">
-              {project.previews.map((preview) => (
-                <a
-                  key={preview.page}
-                  href={`/portfolio/#page=${preview.page}`}
-                  className="dialog-preview-item"
-                  title={t.openSlide(preview.page)}
-                >
-                  <img
-                    src={preview.src}
-                    alt={preview.alt}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </a>
-              ))}
+              {project.previews.map((preview) =>
+                project.caseId ? (
+                  <button
+                    key={preview.page}
+                    type="button"
+                    className="dialog-preview-item"
+                    onClick={() => onOpenCase(project.caseId!)}
+                    title={t.viewFullCase(project.workCount)}
+                  >
+                    <img
+                      src={preview.src}
+                      alt={preview.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                ) : (
+                  <a
+                    key={preview.page}
+                    href={`/portfolio/#page=${preview.page}`}
+                    className="dialog-preview-item"
+                    title={t.openSlide(preview.page)}
+                  >
+                    <img
+                      src={preview.src}
+                      alt={preview.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                )
+              )}
             </div>
           )}
 
@@ -155,16 +184,29 @@ export function ProjectDialog({ project, lang, onClose }: ProjectDialogProps) {
             </blockquote>
           )}
 
-          {(project.portfolioPage || (project.links && project.links.length > 0)) && (
+          {(project.caseId ||
+            project.portfolioPage ||
+            (project.links && project.links.length > 0)) && (
             <div className="dialog-footer-bar">
-              {project.portfolioPage && (
-                <a
+              {project.caseId ? (
+                <button
+                  type="button"
                   className="dialog-btn dialog-btn--primary"
-                  href={`/portfolio/#page=${project.portfolioPage}`}
+                  onClick={() => onOpenCase(project.caseId!)}
                 >
-                  <span>{t.viewFullCase(project.slideCount)}</span>
+                  <span>{t.viewFullCase(project.workCount)}</span>
                   <ArrowUpRight size={15} />
-                </a>
+                </button>
+              ) : (
+                project.portfolioPage && (
+                  <a
+                    className="dialog-btn dialog-btn--primary"
+                    href={`/portfolio/#page=${project.portfolioPage}`}
+                  >
+                    <span>{t.viewFullCase(project.workCount)}</span>
+                    <ArrowUpRight size={15} />
+                  </a>
+                )
               )}
 
               {project.links && project.links.length > 0 && (

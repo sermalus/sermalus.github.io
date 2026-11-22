@@ -44,8 +44,8 @@ export const UI_COPY = {
     openTelegram: "Open in Telegram",
     available: "Available",
     closeDialog: "Close project details",
-    viewFullCase: (slides?: number) =>
-      slides ? `View full case (${slides} slides)` : "View full case",
+    viewFullCase: (works?: number) =>
+      works ? `Open gallery (${works} works)` : "Open gallery",
     openSlide: (page: number) => `Open slide ${page}`,
     switchLangAria: "Switch language to Russian",
   },
@@ -60,8 +60,8 @@ export const UI_COPY = {
     openTelegram: "Открыть в Telegram",
     available: "Открыт к проектам",
     closeDialog: "Закрыть описание проекта",
-    viewFullCase: (slides?: number) =>
-      slides ? `Открыть кейс (${slides} сл.)` : "Открыть кейс",
+    viewFullCase: (works?: number) =>
+      works ? `Открыть галерею (${works})` : "Открыть галерею",
     openSlide: (page: number) => `Открыть слайд ${page}`,
     switchLangAria: "Переключить язык на английский",
   },
@@ -69,7 +69,7 @@ export const UI_COPY = {
 
 export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
   "my-projects": {
-    shortDesc: "Айдентика, постеры и полное портфолио на 68 слайдов.",
+    shortDesc: "Айдентика, логотипы и полное портфолио (68 сл.).",
     ctaLabel: "Открыть PDF",
   },
   "cold-war": {
@@ -81,7 +81,7 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
     meta: [
       { label: "Период", value: "2025 – сейчас" },
       { label: "Софт", value: "Figma · Affinity" },
-      { label: "Объём", value: "18 слайдов" },
+      { label: "Работ", value: "21 ассет" },
     ],
     deliverables: [
       "Коммерческие вывески",
@@ -113,7 +113,7 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
     meta: [
       { label: "Масштаб", value: "20k+ участников" },
       { label: "Софт", value: "Figma · Affinity" },
-      { label: "Объём", value: "17 слайдов" },
+      { label: "Работ", value: "18 ассетов" },
     ],
     deliverables: [
       "Агитационные постеры",
