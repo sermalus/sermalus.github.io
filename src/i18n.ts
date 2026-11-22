@@ -99,6 +99,10 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
         href: "https://www.roblox.com/communities/32519006",
       },
     ],
+    quote: {
+      text: "С ним приятно и легко работать: быстро отвечает и всегда на связи. Однозначно рекомендую за ответственный подход к задачам.",
+      author: "popkid56 · Тимлид, Cold War",
+    },
   },
   stec: {
     shortDesc: "Студия разработки и медиа-дизайна для 20k+ комьюнити.",
@@ -127,6 +131,10 @@ export const PROJECTS_RU: Record<ProjectItem["id"], Partial<ProjectItem>> = {
         href: "https://www.roblox.com/communities/35979610/AFCS-Atrian-Federal-Correctional-Services#!/about",
       },
     ],
+    quote: {
+      text: "Быстрый и сильный участник команды с отличным чувством графического дизайна. Активный и надёжный специалист.",
+      author: "Dipstick (@hvzel_dip) · Руководитель отдела STEC",
+    },
   },
   hellmet: {
     shortDesc: "Текущий проект · Кейс готовится к публикации.",
