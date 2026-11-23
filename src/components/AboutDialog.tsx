@@ -77,11 +77,11 @@ export function AboutDialog({ open, lang, onClose }: AboutDialogProps) {
       }}
     >
       {open && (
-        <div className="dialog-body">
-          <div className="dialog-head">
-            <div className="dialog-identity">
+        <div className="about-body">
+          <header className="about-head">
+            <div className="about-identity">
               <div className="about-mark" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="26" height="26" fill="none">
+                <svg viewBox="0 0 40 40" width="22" height="22" fill="none">
                   <path
                     d="M26.5 13.6c-1.2-1.1-3-1.8-5.6-1.8-3.7 0-5.9 1.7-5.9 4.3 0 2.4 1.8 3.6 5.2 4.3l2 .4c2.3.4 3.4 1.1 3.4 2.4 0 1.5-1.5 2.6-4.2 2.6-2.5 0-4.5-.9-5.8-2.3l-1.9 2c1.7 1.9 4.3 3 7.7 3 4.4 0 7.1-2.1 7.1-5.2 0-2.6-1.8-4.2-5.6-4.9l-2-.4c-2.2-.4-3.2-1.1-3.2-2.2 0-1.2 1.2-2.1 3.2-2.1 2 0 3.4.6 4.5 1.5l2.1-1.6Z"
                     fill="#E8EAED"
@@ -89,92 +89,101 @@ export function AboutDialog({ open, lang, onClose }: AboutDialogProps) {
                 </svg>
               </div>
               <div>
-                <span className="dialog-role">{copy.role}</span>
-                <h2 id="about-dialog-title" className="dialog-title">
+                <h2 id="about-dialog-title" className="about-name">
                   Sermalus
                 </h2>
+                <p className="about-role">{copy.role}</p>
               </div>
             </div>
 
             <form method="dialog">
               <button
                 type="submit"
-                className="dialog-close"
+                className="about-close"
                 aria-label={copy.closeAria}
                 autoFocus
               >
-                <X size={16} />
+                <X size={16} strokeWidth={1.5} />
               </button>
             </form>
+          </header>
+
+          <p className="about-bio">{copy.aboutText}</p>
+
+          <div className="about-divider" aria-hidden="true" />
+
+          <div className="about-columns">
+            <section className="about-col">
+              <h3 className="about-label">{copy.focusTitle}</h3>
+              <ul className="about-list">
+                {copy.focusItems.map((item) => (
+                  <li className="about-list-item" key={item.title}>
+                    <div className="about-item-title">{item.title}</div>
+                    <p className="about-item-desc">{item.desc}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="about-col">
+              <h3 className="about-label">{copy.skillsTitle}</h3>
+              <ul className="about-list">
+                {copy.skills.map((skill) => (
+                  <li className="about-list-item" key={skill.name}>
+                    <div className="about-item-title about-item-title--mono">
+                      {skill.name}
+                    </div>
+                    <p className="about-item-desc">{skill.desc}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
 
-          <section className="about-section">
-            <h3 className="about-label">{copy.aboutTitle}</h3>
-            <p className="dialog-copy">{copy.aboutText}</p>
-          </section>
+          <div className="about-divider" aria-hidden="true" />
 
-          <section className="about-section">
-            <h3 className="about-label">{copy.focusTitle}</h3>
-            <div className="about-grid">
-              {copy.focusItems.map((item) => (
-                <div className="about-card" key={item.title}>
-                  <div className="about-card-title">{item.title}</div>
-                  <p className="about-card-desc">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="about-section">
-            <h3 className="about-label">{copy.skillsTitle}</h3>
-            <div className="about-skills">
-              {copy.skills.map((skill) => (
-                <div className="about-skill-row" key={skill.name}>
-                  <span className="about-skill-name">{skill.name}</span>
-                  <span className="about-skill-desc">{skill.desc}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="about-section">
+          <section className="about-reviews-block">
             <h3 className="about-label">{copy.reviewsTitle}</h3>
             <div className="about-quotes">
               {copy.reviews.map((review) => (
-                <blockquote className="dialog-quote" key={review.author}>
+                <blockquote className="about-quote" key={review.author}>
                   <p>“{review.text}”</p>
-                  <footer>— {review.author}</footer>
+                  <footer>{review.author}</footer>
                 </blockquote>
               ))}
             </div>
           </section>
 
-          <div className="dialog-footer-bar">
-            <a className="dialog-btn dialog-btn--primary" href="/portfolio/">
+          <footer className="about-footer">
+            <a className="about-primary-btn" href="/portfolio/">
               <span>{copy.openPdf}</span>
-              <ArrowUpRight size={15} />
+              <ArrowUpRight size={16} strokeWidth={1.5} />
             </a>
 
-            <div className="dialog-ext-links">
+            <div className="about-contacts">
               <button
                 type="button"
-                className="dialog-text-link about-copy-btn"
+                className="about-link-btn"
                 onClick={handleCopyDiscord}
               >
-                {copiedDiscord ? <Check size={13} /> : <Copy size={13} />}
+                {copiedDiscord ? (
+                  <Check size={14} strokeWidth={1.5} />
+                ) : (
+                  <Copy size={14} strokeWidth={1.5} />
+                )}
                 <span>{copiedDiscord ? ui.copied : "Discord"}</span>
               </button>
               <a
-                className="dialog-text-link"
+                className="about-link-btn"
                 href="https://t.me/sermalus"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <span>Telegram</span>
-                <ArrowUpRight size={13} />
+                <ArrowUpRight size={14} strokeWidth={1.5} />
               </a>
             </div>
-          </div>
+          </footer>
         </div>
       )}
     </dialog>
