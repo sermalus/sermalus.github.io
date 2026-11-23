@@ -48,6 +48,7 @@ export const UI_COPY = {
       works ? `Open gallery (${works} works)` : "Open gallery",
     openSlide: (page: number) => `Open slide ${page}`,
     switchLangAria: "Switch language to Russian",
+    aboutButton: "About",
   },
   ru: {
     pageTitle: "Sermalus — Графический дизайнер",
@@ -64,6 +65,82 @@ export const UI_COPY = {
       works ? `Открыть галерею (${works})` : "Открыть галерею",
     openSlide: (page: number) => `Открыть слайд ${page}`,
     switchLangAria: "Переключить язык на английский",
+    aboutButton: "Обо мне",
+  },
+} as const;
+
+export const ABOUT_COPY = {
+  en: {
+    role: "Graphic Designer · 3+ years",
+    closeAria: "Close about modal",
+    aboutTitle: "About me",
+    aboutText:
+      "Graphic designer with 3+ years of hands-on experience creating brand identities, logo systems, and in-game visual assets. I combine clean, structured branding (logo books, merch, community visuals) with detailed worldbuilding graphics (in-game ads, retro posters, signage, packaging, and faction iconography).",
+    focusTitle: "Core focus",
+    focusItems: [
+      {
+        title: "Brand & Identity",
+        desc: "Logos, visual guidelines, merch, print & community branding",
+      },
+      {
+        title: "Game Environment Graphics",
+        desc: "In-world posters, commercial signage, prop textures, faction emblems & vector icons",
+      },
+    ],
+    skillsTitle: "Skills",
+    skills: [
+      { name: "Figma", desc: "Logo design, brand systems, layouts" },
+      { name: "Affinity", desc: "Poster design, print & texture editing" },
+    ],
+    reviewsTitle: "Team reviews",
+    reviews: [
+      {
+        text: "Easy to work with, fast to respond and generally a nice person. I highly recommend him for his good working attitude.",
+        author: "popkid56 · Team Lead, Cold War",
+      },
+      {
+        text: "Quick and skilled contributor who shows a great and unique touch for graphic design. Both active and highly capable.",
+        author: "Dipstick (@hvzel_dip) · STEC Department Head",
+      },
+    ],
+    openPdf: "Open full PDF (68p)",
+    copyDiscord: "Copy Discord",
+  },
+  ru: {
+    role: "Графический дизайнер · 3+ года опыта",
+    closeAria: "Закрыть окно «Обо мне»",
+    aboutTitle: "Обо мне",
+    aboutText:
+      "Графический дизайнер с опытом более 3 лет в создании айдентики, логотипов и внутриигровой графики. Совмещаю чистый структурный брендинг (логобуки, мерч, оформление сообществ) с детальной графикой игровых миров (внутриигровая реклама, ретро-постеры, вывески, упаковка и символика фракций).",
+    focusTitle: "Основной фокус",
+    focusItems: [
+      {
+        title: "Брендинг и айдентика",
+        desc: "Логотипы, гайдлайны, мерч, полиграфия и оформление комьюнити",
+      },
+      {
+        title: "Игровая графика окружения",
+        desc: "Постеры, коммерческие вывески, текстуры пропов, эмблемы фракций и векторные иконки",
+      },
+    ],
+    skillsTitle: "Инструменты",
+    skills: [
+      { name: "Figma", desc: "Логотипы, бренд-системы, вёрстка и макеты" },
+      { name: "Affinity", desc: "Постеры, печать и работа с текстурами" },
+    ],
+    reviewsTitle: "Отзывы команд",
+    reviews: [
+      {
+        text: "С ним приятно и легко работать: быстро отвечает и всегда на связи. Однозначно рекомендую за ответственный подход к задачам.",
+        author: "popkid56 · Тимлид, Cold War",
+      },
+      {
+        text: "Быстрый и сильный участник команды с отличным чувством графического дизайна. Активный и надёжный специалист.",
+        author: "Dipstick (@hvzel_dip) · Руководитель отдела STEC",
+      },
+    ],
+    openPdf: "Открыть PDF (68 сл.)",
+    copyDiscord: "Скопировать Discord",
   },
 } as const;
 

@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { Header } from "./components/Header";
 import { ProjectCard } from "./components/ProjectCard";
 import { ProjectDialog } from "./components/ProjectDialog";
+import { AboutDialog } from "./components/AboutDialog";
 import { Footer } from "./components/Footer";
 import { CasePage } from "./components/CasePage";
 import { PROJECTS, type ProjectItem } from "./data/projects";
@@ -26,6 +27,7 @@ function parseCaseRoute(): CaseRoute {
 export function App() {
   const [lang, setLang] = useState<Lang>(() => detectInitialLang());
   const [activeId, setActiveId] = useState<ProjectItem["id"] | null>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [caseRoute, setCaseRoute] = useState<CaseRoute>(() => parseCaseRoute());
 
   useEffect(() => {
@@ -104,7 +106,11 @@ export function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Header lang={lang} onToggleLang={toggleLang} />
+          <Header
+            lang={lang}
+            onToggleLang={toggleLang}
+            onOpenAbout={() => setAboutOpen(true)}
+          />
 
           <section className="cards-row" aria-label="Projects">
             {localizedProjects.map((project) => (
@@ -125,6 +131,12 @@ export function App() {
         lang={lang}
         onClose={() => setActiveId(null)}
         onOpenCase={navigateToCase}
+      />
+
+      <AboutDialog
+        open={aboutOpen}
+        lang={lang}
+        onClose={() => setAboutOpen(false)}
       />
     </div>
   );

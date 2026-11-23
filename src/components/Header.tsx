@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight, Check, Copy, User } from "lucide-react";
 import { toast } from "sonner";
 import { CONTACTS } from "../data/projects";
 import { UI_COPY, type Lang } from "../i18n";
@@ -8,6 +8,7 @@ import { UI_COPY, type Lang } from "../i18n";
 interface HeaderProps {
   lang: Lang;
   onToggleLang: () => void;
+  onOpenAbout: () => void;
 }
 
 function DiscordIcon() {
@@ -26,7 +27,7 @@ function TelegramIcon() {
   );
 }
 
-export function Header({ lang, onToggleLang }: HeaderProps) {
+export function Header({ lang, onToggleLang, onOpenAbout }: HeaderProps) {
   const [openId, setOpenId] = useState<"discord" | "telegram" | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const clusterRef = useRef<HTMLDivElement>(null);
@@ -94,6 +95,18 @@ export function Header({ lang, onToggleLang }: HeaderProps) {
           <span className={lang === "en" ? "is-current" : ""}>EN</span>
           <span className="lang-sep" aria-hidden="true">/</span>
           <span className={lang === "ru" ? "is-current" : ""}>RU</span>
+        </button>
+
+        <button
+          type="button"
+          className="contact-chip contact-chip--primary"
+          onClick={() => {
+            setOpenId(null);
+            onOpenAbout();
+          }}
+        >
+          <User size={15} aria-hidden="true" />
+          <span>{t.aboutButton}</span>
         </button>
 
         {CONTACTS.map((contact) => {
